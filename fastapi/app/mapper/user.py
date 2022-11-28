@@ -5,7 +5,7 @@ from app.models.user import User
 
 
 class UserMapper:
-    async def create_user(signup_user: User):
+    def create_user(signup_user: User):
         session = get_db_session()
 
         try:
@@ -19,3 +19,19 @@ class UserMapper:
             )
         
         session.close()
+
+
+    def find_user_by_user_id(user_id: str) -> User:
+        session = get_db_session()
+
+        ex_user: User = None
+
+        try:
+            ex_user = session.query(User).filter_by(user_id=user_id).one()
+        except:
+            print('존재하지 않는 회원입니다.')
+        finally:
+            session.close()
+
+        return ex_user
+            

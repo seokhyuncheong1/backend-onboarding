@@ -1,9 +1,11 @@
+from .config import settings
+
 from sqlalchemy import create_engine
 from sqlalchemy.orm import scoped_session, sessionmaker, declarative_base, Session
 
 engine = create_engine('postgresql://{username}:{password}@{host}:{port}/{db_name}'.format(
-    username='shcheong', password='shcheong', host='localhost', port='5432', db_name='test'
-))
+    username=settings.DB_USER, password=settings.DB_PASSWORD, host=settings.DB_IP, port=settings.DB_PORT, db_name=settings.DB_NAME
+), echo=True)
 db_session = scoped_session(sessionmaker(autocommit=False, autoflush=False, bind=engine))
 
 
