@@ -4,6 +4,7 @@ from app.schemas.request.auth import (
     SignupRequest,
     LoginRequest
 )
+from app.schemas.response.auth import LoginResponse
 
 
 router = APIRouter()
@@ -15,7 +16,6 @@ async def signup(signup_info: SignupRequest):
     return { 'message': 'ok' }
 
 
-@router.post('/login')
+@router.post('/login', response_model=LoginResponse)
 async def login(login_info: LoginRequest):
-    await AuthService.login(login_info)
-    return { 'message': 'ok' }
+    return await AuthService.login(login_info)

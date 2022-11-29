@@ -1,11 +1,12 @@
 from fastapi import status, HTTPException
+from typing import Optional
 
 from app.common.db import get_db_session
 from app.models.user import User
 
 
 class UserMapper:
-    def create_user(signup_user: User):
+    def create_user(signup_user: User) -> None:
         session = get_db_session()
 
         try:
@@ -21,10 +22,10 @@ class UserMapper:
         session.close()
 
 
-    def find_user_by_user_id(user_id: str) -> User:
+    def find_user_by_user_id(user_id: str) -> Optional[User]:
         session = get_db_session()
 
-        ex_user: User = None
+        ex_user: Optional[User] = None
 
         try:
             ex_user = session.query(User).filter_by(user_id=user_id).one()
