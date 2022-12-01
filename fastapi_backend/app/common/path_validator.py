@@ -3,7 +3,8 @@ from typing import List
 
 
 check_path_list: List[str] = [
-    "/api/v1/test/*"
+    "/api/v1/test/*",
+    "/api/v1/todo/*"
 ]
 
 def url_pattern_check(path: str) -> bool:
