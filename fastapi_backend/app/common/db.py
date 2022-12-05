@@ -21,7 +21,6 @@ async_db_session = async_scoped_session(
     scopefunc=current_task
 )
 
-
 Base = declarative_base()
 
 

@@ -22,3 +22,10 @@ class User(Base):
 
     def __init__(self, id: int):
         self.id = id
+
+    def __to_dict__(self):
+        return {
+            "id": self.id,
+            "user_id": self.user_id,
+            "user_password": self.user_password
+        }
