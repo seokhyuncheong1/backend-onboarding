@@ -15,6 +15,6 @@ class JWTService:
         return jwt.encode(payload, settings.JWT_SECRET_KEY, settings.JWT_ALGORITHM)
 
 
-    async def verify_token(token:str):
+    async def verify_token(token: str):
         decode_token = jwt.decode(token, settings.JWT_SECRET_KEY, settings.JWT_ALGORITHM)
         return decode_token["user_id"]
