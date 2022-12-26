@@ -1,7 +1,7 @@
 from fastapi import status, Depends
 from typing import List
 from sqlalchemy import select, update, delete
-from sqlalchemy.orm import join
+from sqlalchemy.orm import join, joinedload, selectinload
 from sqlalchemy.ext.asyncio import async_scoped_session, AsyncSession
 from sqlalchemy.engine import Result
 from sqlalchemy.engine.result import ChunkedIteratorResult

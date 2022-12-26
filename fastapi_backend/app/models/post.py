@@ -10,7 +10,7 @@ class Post(Base):
     id = Column(Integer, primary_key=True)
     title = Column(String(20), nullable=False)
     content = Column(String(1000))
-    hashtags = relationship("Hashtag", secondary="post_hashtag", back_populates="posts")
+    hashtags = relationship("Hashtag", secondary="post_hashtag", back_populates="posts", cascade="all, delete")
 
     def __init__(self, title, content):
         self.title = title

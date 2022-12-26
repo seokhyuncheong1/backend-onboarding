@@ -5,7 +5,9 @@ from app.schemas.request.auth import (
     SignupRequest,
     LoginRequest
 )
+from app.schemas.request.auth import RefreshTokenRequest
 from app.schemas.response.auth import LoginResponse
+from app.service.jwt import JWTService
 
 
 router = APIRouter()
@@ -18,11 +20,15 @@ async def signup(signup_info: SignupRequest):
 
 
 @router.post('/login', response_model=LoginResponse)
-async def login(login_info: LoginRequest, response: Response):
+async def login(login_info: LoginRequest):
     jwt_token: LoginResponse = await AuthService.login(login_info)
-    response.set_cookie("access_token", jwt_token.access_token)
-    response.set_cookie("refresh_token", jwt_token.refresh_token)
+    return jwt_token
 
+
+@router.post('/refresh', response_model=LoginResponse)
+async def refresh_token(refresh_info: RefreshTokenRequest):
+    new_access_token: str = await JWTService.refresh_token(refresh_info.refresh_token)
+    jwt_token: LoginResponse = LoginResponse(access_token=new_access_token, refresh_token=refresh_info.refresh_token)
     return jwt_token
 
 
